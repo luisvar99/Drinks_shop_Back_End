@@ -7,6 +7,7 @@ const getAllDrinks = async (req, res, next) => {
     } catch (error) {
         next(error)
     }
+    return res.json(allDrinks.rows);
 }
 
 const getDrinksByCategory = async (req, res, next) => {
