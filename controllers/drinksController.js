@@ -5,7 +5,7 @@ const getAllDrinks = async (req, res, next) => {
         const allDrinks = await db.query('SELECT * FROM drinks')
         res.json(allDrinks.rows);
     } catch (error) {
-        next(error)
+        next(error.message)
     }
     return res.json(allDrinks.rows);
 }
