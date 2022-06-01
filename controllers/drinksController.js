@@ -4,10 +4,10 @@ const getAllDrinks = async (req, res, next) => {
     try {
         const allDrinks = await db.query('SELECT * FROM drinks')
         res.json(allDrinks.rows);
+        return res.json(allDrinks.rows);
     } catch (error) {
         next(error.message)
     }
-    //return res.json(allDrinks.rows);
 }
 
 const getDrinksByCategory = async (req, res, next) => {
