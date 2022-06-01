@@ -5,7 +5,6 @@ const getAllCategories = async (req, res, next) => {
         const allCategories = await db.query('SELECT * FROM categories')
         return res.json(allCategories.rows);
     } catch (error) {
-        console.log(error);
         next(error)
     }
 }
