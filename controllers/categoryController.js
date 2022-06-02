@@ -1,5 +1,6 @@
 const {db} = require('../db');
 
+
 const getAllCategories = async (req, res, next) => {
     try {
         //res.json({Query: "After Query"})
@@ -10,7 +11,6 @@ const getAllCategories = async (req, res, next) => {
         //next(error)
     }
 }
-
 
 module.exports = {
     getAllCategories
