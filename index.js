@@ -16,7 +16,16 @@ app.use(drinksRoutes);
 app.use(categoriesRoutes);
 app.use(clientsRoutes);
 
-app.get('/', (req, res) => {res.send("Working")})
+app.get('/', (req, res) => {
+        try {
+            //res.json({Query: "After Query"})
+            const allCategories = await db.query("SELECT * FROM public.categories")
+            res.json(allCategories.rows);
+        } catch (error) {
+            res.json({error});
+            //next(error)
+        }
+    })
 
 app.use((err, req, res, next) => { 
     return res.json({
