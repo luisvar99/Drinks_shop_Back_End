@@ -17,14 +17,7 @@ app.use(categoriesRoutes);
 app.use(clientsRoutes);
 
 app.get('/', (req, res) => {
-        try {
-            //res.json({Query: "After Query"})
-            const allCategories = await db.query("SELECT * FROM public.categories")
-            res.json(allCategories.rows);
-        } catch (error) {
-            res.json({error});
-            //next(error)
-        }
+        res.send("Hello")
     })
 
 app.use((err, req, res, next) => { 
@@ -33,7 +26,7 @@ app.use((err, req, res, next) => {
     })
 })
 
-const PORT = process.env.PORT || 4000
+const PORT = 4000
 
 app.listen(PORT , ()=> {
     console.log(`Server on Port ${PORT}`);
