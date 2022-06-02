@@ -4,7 +4,7 @@ const getAllCategories = async (req, res, next) => {
     try {
         //res.json({Query: "After Query"})
         const allCategories = await db.query("SELECT * FROM public.categories")
-        res.json(allCategories.rows);
+        res.json(allCategories.rows[0]);
     } catch (error) {
         res.json({error});
         //next(error)
