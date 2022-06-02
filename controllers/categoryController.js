@@ -6,9 +6,9 @@ const getAllCategories = async (req, res, next) => {
         //res.json({Query: "After Query"})
         //db.connect();
         const allCategories = await db.query("SELECT * FROM categories")
-        res.json({Categories: allCategories.rows});
+        res.json(allCategories.rows);
     } catch (error) {
-        res.json({error:error});
+        res.json({error});
         //next(error)
     }
 }
