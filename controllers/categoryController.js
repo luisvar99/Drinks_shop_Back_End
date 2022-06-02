@@ -3,7 +3,7 @@ const {db} = require('../db');
 const getAllCategories = async (req, res, next) => {
     try {
         //res.json({Query: "After Query"})
-        const allCategories = await db.query("SELECT * FROM categories")
+        const allCategories = await db.query("SELECT * FROM public.categories")
         //res.json(allCategories.rows);
     } catch (error) {
         res.json({error});
