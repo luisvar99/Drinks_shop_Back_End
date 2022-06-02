@@ -7,7 +7,7 @@ const getAllCategories = async (req, res, next) => {
         //res.json(allCategories.rows);
     } catch (error) {
         res.json({error});
-        next(error)
+        //next(error)
     }
 }
 
