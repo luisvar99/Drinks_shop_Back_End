@@ -8,7 +8,7 @@ const getAllCategories = async (req, res, next) => {
         const allCategories = await db.query("SELECT * FROM categories")
         res.json(allCategories.rows);
     } catch (error) {
-        res.json({error});
+        res.json({error:error});
         //next(error)
     }
 }
