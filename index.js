@@ -16,7 +16,7 @@ app.use(drinksRoutes);
 app.use(categoriesRoutes);
 app.use(clientsRoutes);
 
-app.use((err, req, res, next) => { //funcion para manejar errores
+app.use((err, req, res, next) => { 
     return res.json({
         message: "Error!!!",
     })
