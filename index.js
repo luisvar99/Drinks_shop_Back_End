@@ -16,6 +16,8 @@ app.use(drinksRoutes);
 app.use(categoriesRoutes);
 app.use(clientsRoutes);
 
+app.get('/', (req, res) => {res.send("Working")})
+
 app.use((err, req, res, next) => { 
     return res.json({
         message: "Error!!!",
