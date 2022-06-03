@@ -2,7 +2,7 @@ const {db} = require('../db');
 
 const createUserCart = async (req, res, next) => {
     try {
-        const cartCreated = await db.query('INSERT INTO cart(user_id) VALUES ($1)' , [
+        const cartCreated = await db.query('INSERT INTO cart(client_id) VALUES ($1)' , [
             req.params.userId,
         ])
         res.json(cartCreated.rows);

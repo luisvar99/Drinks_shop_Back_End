@@ -5,6 +5,7 @@ const cors = require('cors');
 const drinksRoutes = require('./routes/drinks.routes');
 const categoriesRoutes = require('./routes/category.routes');
 const clientsRoutes = require('./routes/clients.routes')
+const cartRoutes = require('./routes/cart.routes')
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(drinksRoutes);
 app.use(categoriesRoutes);
 app.use(clientsRoutes);
+app.use(cartRoutes);
 
 app.get('/', (req, res) => {
         res.send("Hello")

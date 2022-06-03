@@ -14,7 +14,11 @@ const addClient = async (req, res, error) => {
         const result = await db.query('INSERT INTO clients (username,password, name, last_name) VALUES ($1,$2,$3,$4) RETURNING *', [
             username, password, name, last_name
         ]);
-        res.json(result.rows[0]);
+        if(username===result.rows[0].username){
+            throw new Error;
+        }else{
+            res.json(result.rows[0]);
+        }
 
     } catch (error) {
         res.send({error:"Error"}) //en caso de haber error, se va a la ruta de index.js para manejar errores
