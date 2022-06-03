@@ -15,7 +15,7 @@ const addClient = async (req, res, error) => {
             username, password, name, last_name
         ]);
         if(username===result.rows[0].username){
-            throw new Error;
+            throw new Error('Invalid username');
         }else{
             res.json(result.rows[0]);
         }
