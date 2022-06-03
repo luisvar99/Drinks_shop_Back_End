@@ -1,30 +1,40 @@
 const {db} = require('../db');
 
+const checkUserName = async (req, res, next) => {
+    const client = req.params
+    const username = client.username
+
+    try{
+        const checkUsername = await db.query('SELECT * FROM clients WHERE username = $1' , [username]);
+    
+        console.log(checkUsername.rows);
+        res.json(checkUsername.rows)
+
+    }catch(error){
+        res.json({error})
+    }
+
+}
+
 
 const addClient = async (req, res, error) => {
-    console.log(req.body);
     const client = req.body
     const username = client.username
     const password = client.password
     const name = client.name
     const last_name = client.last_name
-    
-    
+       
     try {
         const result = await db.query('INSERT INTO clients (username,password, name, last_name) VALUES ($1,$2,$3,$4) RETURNING *', [
             username, password, name, last_name
         ]);
-        if(username===result.rows[0].username){
-            throw new Error('Invalid username');
-        }else{
-            res.json(req.body.username);
-        }
-
-    } catch (error) {
+        
+        res.json(result.rows);
+    }
+    catch (error) {
         res.send({error:"Error"}) //en caso de haber error, se va a la ruta de index.js para manejar errores
     }
-    
-}
+}  
 
 const LoginClient = async (req, res, error) => {
     const client = req.body
@@ -67,5 +77,6 @@ const getClients = async (req, res, next) => {
 module.exports = {
     addClient,
     LoginClient, 
-    getClients
+    getClients, 
+    checkUserName
 }

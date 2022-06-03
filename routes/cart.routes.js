@@ -4,6 +4,6 @@ const { createUserCart,
 
 const router = new Router();
 
-router.get('/createUserCart', createUserCart)
+router.post('/createUserCart', createUserCart)
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { LoginClient, addClient, getClients
+const { LoginClient, addClient, getClients,checkUserName
         } = require('../controllers/clientsController')
 
 const router = new Router();
@@ -7,6 +7,7 @@ const router = new Router();
 router.post('/login', LoginClient)
 router.post('/newClient', addClient)
 router.get('/clients', getClients)
+router.get('/checkUserName/:username', checkUserName)
 
 
 module.exports = router;
