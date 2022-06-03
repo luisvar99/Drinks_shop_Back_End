@@ -32,7 +32,8 @@ const getDrinksByName = async (req, res, next) => {
 
 const getOneDrink = async(req, res, next) => {
     try {
-        const oneDrink = await db.query('SELECT * FROM drinks WHERE id = $1' , [req.params.id]);
+        res.json(req.params)
+        const oneDrink = await db.query('SELECT * FROM drinks WHERE product_id = $1' , [req.params.id]);
         res.json(oneDrink.rows);
     } catch (error) {
         next(error)

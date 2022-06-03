@@ -4,15 +4,15 @@ const {db} = require('../db');
 const addClient = async (req, res, error) => {
     console.log(req.body);
     const client = req.body
-    const name = client.name
-    const last_name = client.last_name
     const username = client.username
     const password = client.password
-    const phone = client.phone
+    const name = client.name
+    const last_name = client.last_name
+    
     
     try {
-        const result = await db.query('INSERT INTO clients (name,username, password, last_name) VALUES ($1,$2,$3,$4) RETURNING *', [
-            name, username, password, last_name
+        const result = await db.query('INSERT INTO clients (username,password, name, last_name) VALUES ($1,$2,$3,$4) RETURNING *', [
+            username, password, name, last_name
         ]);
         res.json(result.rows[0]);
 
@@ -49,8 +49,19 @@ const LoginClient = async (req, res, error) => {
     
 }
 
+const getClients = async (req, res, next) => {
+    try {
+        const allClients = await db.query("SELECT * FROM clients")
+        res.json(allClients.rows);
+    } catch (error) {
+        res.json({error});
+        //next(error)
+    }
+}
+
 
 module.exports = {
     addClient,
-    LoginClient
+    LoginClient, 
+    getClients
 }
