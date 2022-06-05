@@ -1,6 +1,10 @@
 const { Router } = require('express');
-const { LoginClient, addClient, getClients,checkUserName
-        } = require('../controllers/clientsController')
+const { LoginClient, 
+        addClient, 
+        getClients,
+        checkUserName, 
+        
+        } = require('../controllers/clientsController');
 
 const router = new Router();
 

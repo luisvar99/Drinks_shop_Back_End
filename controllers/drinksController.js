@@ -84,6 +84,24 @@ const editDrink = async (req, res, next) => {
     }
 }
 
+const addToCart = async (req, res, error) => {
+    const drink = req.body
+    const id = drink.product_id
+    const quantity = drink.quantity
+    const cart_id = drink.cart_id
+    
+    try {
+        console.log(req.body);
+        const result = await db.query('INSERT INTO cart_items (product_id, quantity,cart_id) VALUES ($1,$2,$3) RETURNING *', [
+            id, quantity, cart_id
+        ]);
+        res.json(result.rows)
+    } catch (error) {
+        res.json({error: "Error"}) //en caso de haber error, se va a la ruta de index.js para manejar errores
+    }
+    
+}
+
 module.exports = {
     getAllDrinks,
     getOneDrink,
@@ -91,5 +109,6 @@ module.exports = {
     addDrink,
     deleteDrink,
     editDrink, 
-    getDrinksByName
+    getDrinksByName,
+    addToCart
 }
