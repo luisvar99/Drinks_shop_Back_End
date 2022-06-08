@@ -59,7 +59,9 @@ const addDrink = async (req, res, error) => {
 
 const deleteDrink = async (req, res, next) => {
     try {
-        const drinkToDelete = await db.query('DELETE FROM drinks WHERE id = $1 RETURNING *' , [req.params.id]);
+        const drinkToDelete = await db.query('DELETE FROM drinks WHERE id = $1 RETURNING *' , [
+            req.params.id
+        ]);
         res.json(drinkToDelete.rows);
     } catch (error) {
         next(error)
@@ -89,16 +91,35 @@ const addToCart = async (req, res, error) => {
     const id = drink.product_id
     const quantity = drink.quantity
     const cart_id = drink.cart_id
+    console.log("Original Quantity " + quantity);
     
     try {
         console.log(req.body);
-        const result = await db.query('INSERT INTO cart_items (product_id, quantity,cart_id) VALUES ($1,$2,$3) RETURNING *', [
-            id, quantity, cart_id
+        const searchCartProduct = await db.query('SELECT * from cart_items WHERE cart_id = $1 AND product_id = $2', [
+            cart_id, id
         ]);
-        res.json(result.rows)
+        if (searchCartProduct.rows.length===0){
+            try {
+                //console.log(req.body);
+                const result = await db.query('INSERT INTO cart_items (product_id, quantity,cart_id) VALUES ($1,$2,$3) RETURNING *', [
+                    id, quantity, cart_id
+                ]);
+                res.json(result.rows)
+            } catch (error) {
+                res.json({error: "Error"}) //en caso de haber error, se va a la ruta de index.js para manejar errores
+            }
+        }else{
+            const newQuantity = parseInt(searchCartProduct.rows[0].quantity);
+            console.log("New Quantity " + parseInt(newQuantity + quantity));
+            const drinkToUpdate = await db.query('UPDATE cart_items SET quantity = $1 WHERE cart_id = $2  AND product_id = $3 RETURNING *' , [
+                parseInt(newQuantity + quantity), cart_id, id
+            ]);
+            res.json(drinkToUpdate.rows);
+        }
     } catch (error) {
         res.json({error: "Error"}) //en caso de haber error, se va a la ruta de index.js para manejar errores
     }
+    
     
 }
 
